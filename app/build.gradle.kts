@@ -44,6 +44,7 @@ android {
 dependencies {
     implementation(project(":domain"))
     implementation(project(":core"))
+    implementation(project(":data"))
     implementation(project(":player"))
     implementation(project(":feature_library"))
     implementation(project(":feature_playlists"))
