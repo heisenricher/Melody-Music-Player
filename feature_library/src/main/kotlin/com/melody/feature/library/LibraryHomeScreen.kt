@@ -13,6 +13,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import com.melody.domain.model.Album
 import com.melody.domain.model.Artist
 import com.melody.domain.model.FolderNode
@@ -69,7 +70,3 @@ fun LibraryHomeScreen(
         }
     }
 }
-
-// Inline value to keep code simple
-private val dpVal = 16
-private val 16.dp get() = androidx.compose.ui.unit.dp

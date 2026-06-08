@@ -19,6 +19,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -85,7 +86,10 @@ fun ThemeSettingsScreen(
                 }
             }
 
-            Divider(modifier = Modifier.padding(vertical = 16.dp))
+            HorizontalDivider(
+                modifier = Modifier.padding(vertical = 16.dp),
+                color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.1f)
+            )
 
             Row(
                 verticalAlignment = Alignment.CenterVertically,
@@ -108,13 +112,4 @@ fun ThemeSettingsScreen(
             }
         }
     }
-}
-
-private val dpVal = 16
-private val 16.dp get() = androidx.compose.ui.unit.dp
-private val 12.dp get() = androidx.compose.ui.unit.dp
-private val Divider = @Composable {
-    androidx.compose.material3.Divider(
-        color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.1f)
-    )
 }
