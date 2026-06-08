@@ -28,6 +28,9 @@ class MelodyPlaybackService : MediaLibraryService() {
     @Inject
     lateinit var songRepository: SongRepository
 
+    @Inject
+    lateinit var equalizerController: com.melody.player.equalizer.EqualizerController
+
     private val serviceScope = CoroutineScope(Dispatchers.Main + SupervisorJob())
 
     @OptIn(UnstableApi::class)
@@ -45,6 +48,8 @@ class MelodyPlaybackService : MediaLibraryService() {
             .setHandleAudioBecomingNoisy(true)        // Pause on headset disconnected
             .setWakeMode(C.WAKE_MODE_LOCAL)            // Prevent system sleeping
             .build()
+
+        equalizerController.initEffects(exoPlayer.audioSessionId)
 
         exoPlayer.addListener(object : Player.Listener {
             override fun onMediaItemTransition(mediaItem: MediaItem?, reason: Int) {

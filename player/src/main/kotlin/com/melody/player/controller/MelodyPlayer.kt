@@ -57,7 +57,6 @@ class MelodyPlayer @Inject constructor(
             try {
                 mediaController = controllerFuture?.get()
                 mediaController?.let { controller ->
-                    equalizerController.initEffects(controller.audioSessionId)
                     setupControllerListener(controller)
                     syncControllerState(controller)
                 }
