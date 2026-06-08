@@ -13,8 +13,10 @@ import kotlinx.coroutines.flow.flowOn
 import java.io.File
 import javax.inject.Inject
 
+import dagger.hilt.android.qualifiers.ApplicationContext
+
 class MediaScanner @Inject constructor(
-    private val context: Context,
+    @ApplicationContext private val context: Context,
     private val songDao: SongDao
 ) {
     fun scan(): Flow<ScanStatus> = flow {
