@@ -1,0 +1,47 @@
+# Built artifacts
+*.apk
+*.aar
+*.ap_
+*.aab
+
+# Files for the ART/Dalvik VM
+*.dex
+
+# Java class files
+*.class
+
+# Generated files
+bin/
+gen/
+out/
+build/
+.gradle/
+.kotlin/
+
+# Gradle files
+local.properties
+
+# XML files we don't want
+app/build/
+core/build/
+data/build/
+domain/build/
+player/build/
+feature_library/build/
+feature_playlists/build/
+feature_search/build/
+feature_settings/build/
+
+# Android Studio / IntelliJ IDEA
+.idea/
+*.iml
+*.ipr
+*.iws
+.navigation/
+
+# Log files
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
