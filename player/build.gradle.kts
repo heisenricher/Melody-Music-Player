@@ -27,7 +27,7 @@ dependencies {
     implementation(project(":domain"))
     implementation(project(":core"))
 
-    implementation(libs.androidx.core-ktx)
+    implementation(libs.androidx.core.ktx)
     
     // Media3
     implementation(libs.androidx.media3.exoplayer)
