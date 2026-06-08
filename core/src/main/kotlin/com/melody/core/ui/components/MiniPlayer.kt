@@ -67,20 +67,7 @@ fun MiniPlayer(
                     modifier = Modifier
                         .size(48.dp)
                         .clip(RoundedCornerShape(8.dp)),
-                    fallback = {
-                        Box(
-                            modifier = Modifier
-                                .size(48.dp)
-                                .background(MaterialTheme.colorScheme.surfaceVariant, RoundedCornerShape(8.dp)),
-                            contentAlignment = Alignment.Center
-                        ) {
-                            Icon(
-                                imageVector = Icons.Default.MusicNote,
-                                contentDescription = null,
-                                tint = MaterialTheme.colorScheme.onSurfaceVariant
-                            )
-                        }
-                    }
+                    fallback = androidx.compose.ui.graphics.vector.rememberVectorPainter(Icons.Default.MusicNote)
                 )
 
                 Spacer(modifier = Modifier.width(12.dp))

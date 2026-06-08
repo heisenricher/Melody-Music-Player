@@ -57,23 +57,8 @@ fun SongRow(
             modifier = Modifier
                 .size(52.dp)
                 .clip(RoundedCornerShape(8.dp)),
-            fallback = {
-                // Fallback placeholder when no cover exists
-                Icon(
-                    imageVector = Icons.Default.MusicNote,
-                    contentDescription = null,
-                    modifier = Modifier.padding(12.dp),
-                    tint = MaterialTheme.colorScheme.onSurfaceVariant
-                )
-            },
-            error = {
-                Icon(
-                    imageVector = Icons.Default.MusicNote,
-                    contentDescription = null,
-                    modifier = Modifier.padding(12.dp),
-                    tint = MaterialTheme.colorScheme.onSurfaceVariant
-                )
-            }
+            fallback = androidx.compose.ui.graphics.vector.rememberVectorPainter(Icons.Default.MusicNote),
+            error = androidx.compose.ui.graphics.vector.rememberVectorPainter(Icons.Default.MusicNote)
         )
 
         Spacer(modifier = Modifier.width(16.dp))

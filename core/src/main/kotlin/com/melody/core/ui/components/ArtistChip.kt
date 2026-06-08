@@ -45,22 +45,8 @@ fun ArtistChip(
                 .fillMaxWidth(0.85f)
                 .aspectRatio(1f)
                 .clip(CircleShape),
-            fallback = {
-                Icon(
-                    imageVector = Icons.Default.Person,
-                    contentDescription = null,
-                    modifier = Modifier.padding(24.dp),
-                    tint = MaterialTheme.colorScheme.onSurfaceVariant
-                )
-            },
-            error = {
-                Icon(
-                    imageVector = Icons.Default.Person,
-                    contentDescription = null,
-                    modifier = Modifier.padding(24.dp),
-                    tint = MaterialTheme.colorScheme.onSurfaceVariant
-                )
-            }
+            fallback = androidx.compose.ui.graphics.vector.rememberVectorPainter(Icons.Default.Person),
+            error = androidx.compose.ui.graphics.vector.rememberVectorPainter(Icons.Default.Person)
         )
 
         Spacer(modifier = Modifier.height(8.dp))
