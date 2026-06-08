@@ -21,7 +21,7 @@ import androidx.glance.unit.ColorProvider
 
 class MelodyWidget : GlanceAppWidget() {
 
-    override suspend fun provideContent(context: Context, id: GlanceId) {
+    override suspend fun provideGlance(context: Context, id: GlanceId) {
         provideContent {
             // Widget UI using Glance Compose components
             Column(
