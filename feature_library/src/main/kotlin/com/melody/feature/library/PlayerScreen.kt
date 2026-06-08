@@ -125,21 +125,7 @@ fun PlayerScreen(
                         .aspectRatio(1f)
                         .clip(RoundedCornerShape(24.dp))
                         .background(MaterialTheme.colorScheme.surfaceVariant),
-                    fallback = {
-                        Box(
-                            modifier = Modifier
-                                .fillMaxSize()
-                                .background(MaterialTheme.colorScheme.surfaceVariant),
-                            contentAlignment = Alignment.Center
-                        ) {
-                            Icon(
-                                imageVector = Icons.Default.MusicNote,
-                                contentDescription = null,
-                                modifier = Modifier.size(120.dp),
-                                tint = MaterialTheme.colorScheme.onSurfaceVariant
-                            )
-                        }
-                    }
+                    fallback = androidx.compose.ui.graphics.vector.rememberVectorPainter(Icons.Default.MusicNote)
                 )
 
                 Spacer(modifier = Modifier.height(24.dp))

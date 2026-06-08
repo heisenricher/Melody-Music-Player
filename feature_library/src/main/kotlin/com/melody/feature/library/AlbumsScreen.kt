@@ -122,14 +122,7 @@ fun AlbumDetailScreen(
                     .size(200.dp)
                     .clip(RoundedCornerShape(16.dp))
                     .padding(8.dp),
-                fallback = {
-                    Icon(
-                        imageVector = Icons.Default.Album,
-                        contentDescription = null,
-                        modifier = Modifier.size(120.dp),
-                        tint = MaterialTheme.colorScheme.onSurfaceVariant
-                    )
-                }
+                fallback = androidx.compose.ui.graphics.vector.rememberVectorPainter(Icons.Default.Album)
             )
 
             Spacer(modifier = Modifier.height(8.dp))

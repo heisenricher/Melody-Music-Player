@@ -120,14 +120,7 @@ fun ArtistDetailScreen(
                     .size(160.dp)
                     .clip(CircleShape)
                     .padding(8.dp),
-                fallback = {
-                    Icon(
-                        imageVector = Icons.Default.Person,
-                        contentDescription = null,
-                        modifier = Modifier.size(120.dp),
-                        tint = MaterialTheme.colorScheme.onSurfaceVariant
-                    )
-                }
+                fallback = androidx.compose.ui.graphics.vector.rememberVectorPainter(Icons.Default.Person)
             )
 
             Spacer(modifier = Modifier.height(8.dp))
