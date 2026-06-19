@@ -8,6 +8,7 @@ import androidx.compose.material3.dynamicDarkColorScheme
 import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 
 private val DarkColorScheme = darkColorScheme(
@@ -36,11 +37,19 @@ private val LightColorScheme = lightColorScheme(
     onSurfaceVariant = DarkBackground
 )
 
+/**
+ * Main theme composable for Melody.
+ *
+ * @param darkTheme       Whether to apply a dark color scheme.
+ * @param dynamicColor    Use wallpaper-derived colors on Android 12+ (API 31+).
+ * @param customPrimaryColor When provided, overrides the primary (and derived) colors in the
+ *                           scheme. Has no effect when [dynamicColor] is active.
+ */
 @Composable
 fun MelodyTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
-    // Dynamic color is available on Android 12+
-    dynamicColor: Boolean = true,
+    dynamicColor: Boolean = false,
+    customPrimaryColor: Color? = null,
     content: @Composable () -> Unit
 ) {
     val colorScheme = when {
@@ -48,8 +57,30 @@ fun MelodyTheme(
             val context = LocalContext.current
             if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
         }
-        darkTheme -> DarkColorScheme
-        else -> LightColorScheme
+        darkTheme -> {
+            if (customPrimaryColor != null) {
+                DarkColorScheme.copy(
+                    primary = customPrimaryColor,
+                    onPrimary = Color.White,
+                    primaryContainer = customPrimaryColor.copy(alpha = 0.2f),
+                    onPrimaryContainer = customPrimaryColor
+                )
+            } else {
+                DarkColorScheme
+            }
+        }
+        else -> {
+            if (customPrimaryColor != null) {
+                LightColorScheme.copy(
+                    primary = customPrimaryColor,
+                    onPrimary = Color.White,
+                    primaryContainer = customPrimaryColor.copy(alpha = 0.15f),
+                    onPrimaryContainer = customPrimaryColor
+                )
+            } else {
+                LightColorScheme
+            }
+        }
     }
 
     MaterialTheme(

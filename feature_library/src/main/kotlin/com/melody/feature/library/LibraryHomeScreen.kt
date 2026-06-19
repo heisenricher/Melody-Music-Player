@@ -31,7 +31,7 @@ fun LibraryHomeScreen(
     onSongOptionsClick: (Song) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val tabs = listOf("Songs", "Albums", "Artists", "Genres", "Folders")
+    val tabs = listOf("Songs", "Most Played", "Albums", "Artists", "Genres", "Folders")
     val pagerState = rememberPagerState { tabs.size }
     val coroutineScope = rememberCoroutineScope()
 
@@ -58,14 +58,17 @@ fun LibraryHomeScreen(
 
         HorizontalPager(
             state = pagerState,
-            modifier = Modifier.fillMaxWidth().weight(1f)
+            modifier = Modifier
+                .fillMaxWidth()
+                .weight(1f)
         ) { page ->
             when (page) {
                 0 -> SongsScreen(onSongOptionsClick = onSongOptionsClick)
-                1 -> AlbumsScreen(onAlbumClick = onAlbumClick)
-                2 -> ArtistsScreen(onArtistClick = onArtistClick)
-                3 -> GenresScreen(onGenreClick = onGenreClick)
-                4 -> FoldersScreen(onFolderClick = onFolderClick)
+                1 -> MostPlayedScreen()
+                2 -> AlbumsScreen(onAlbumClick = onAlbumClick)
+                3 -> ArtistsScreen(onArtistClick = onArtistClick)
+                4 -> GenresScreen(onGenreClick = onGenreClick)
+                5 -> FoldersScreen(onFolderClick = onFolderClick)
             }
         }
     }

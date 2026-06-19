@@ -176,11 +176,13 @@ fun PlayerScreen(
                     ) {
                         Text(
                             text = DurationFormatter.formatMs(state.playbackPosition),
-                            style = MaterialTheme.typography.labelSmall
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.onSurface
                         )
                         Text(
                             text = DurationFormatter.formatMs(state.duration),
-                            style = MaterialTheme.typography.labelSmall
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.onSurface
                         )
                     }
                 }

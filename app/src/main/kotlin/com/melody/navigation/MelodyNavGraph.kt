@@ -1,18 +1,14 @@
 package com.melody.navigation
 
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.ModalBottomSheet
-import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.navigation.NavHostController
-import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.navArgument
 import com.melody.domain.model.Album
 import com.melody.domain.model.Artist
 import com.melody.domain.model.FolderNode
@@ -30,10 +26,8 @@ import com.melody.feature.library.TagEditorScreen
 import com.melody.feature.playlists.PlaylistDetailScreen
 import com.melody.feature.playlists.PlaylistListScreen
 import com.melody.feature.search.SearchScreen
-import com.melody.feature.settings.AudioSettingsScreen
+import com.melody.feature.settings.ColorPickerScreen
 import com.melody.feature.settings.SettingsScreen
-import com.melody.feature.settings.StorageSettingsScreen
-import com.melody.feature.settings.ThemeSettingsScreen
 import com.melody.player.controller.MelodyPlayer
 
 sealed class Screen(val route: String) {
@@ -43,9 +37,7 @@ sealed class Screen(val route: String) {
     object Settings : Screen("settings")
     object Player : Screen("player")
     object Lyrics : Screen("lyrics")
-    object ThemeSettings : Screen("theme_settings")
-    object AudioSettings : Screen("audio_settings")
-    object StorageSettings : Screen("storage_settings")
+    object ColorPicker : Screen("color_picker")
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -110,10 +102,12 @@ fun MelodyNavGraph(
 
         composable(Screen.Settings.route) {
             SettingsScreen(
-                onNavigateToTheme = { navController.navigate(Screen.ThemeSettings.route) },
-                onNavigateToAudio = { navController.navigate(Screen.AudioSettings.route) },
-                onNavigateToStorage = { navController.navigate(Screen.StorageSettings.route) }
+                onNavigateToColor = { navController.navigate(Screen.ColorPicker.route) }
             )
+        }
+
+        composable(Screen.ColorPicker.route) {
+            ColorPickerScreen(onBackClick = { navController.popBackStack() })
         }
 
         composable(Screen.Player.route) {
@@ -127,18 +121,6 @@ fun MelodyNavGraph(
             LyricsScreen(
                 onBackClick = { navController.popBackStack() }
             )
-        }
-
-        composable(Screen.ThemeSettings.route) {
-            ThemeSettingsScreen(onBackClick = { navController.popBackStack() })
-        }
-
-        composable(Screen.AudioSettings.route) {
-            AudioSettingsScreen(onBackClick = { navController.popBackStack() })
-        }
-
-        composable(Screen.StorageSettings.route) {
-            StorageSettingsScreen(onBackClick = { navController.popBackStack() })
         }
 
         composable("album_detail") {

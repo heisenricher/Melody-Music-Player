@@ -6,6 +6,7 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.floatPreferencesKey
+import androidx.datastore.preferences.core.longPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.core.stringSetPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
@@ -32,6 +33,7 @@ class SettingsRepositoryImpl @Inject constructor(
         val EXCLUDED_FOLDERS = stringSetPreferencesKey("excluded_folders")
         val PINNED_FOLDERS = stringSetPreferencesKey("pinned_folders")
         val PLAYBACK_SPEED = floatPreferencesKey("playback_speed")
+        val APP_COLOR = longPreferencesKey("app_color")
     }
 
     private val sleepTimerRemaining = MutableStateFlow(0L)
@@ -153,6 +155,18 @@ class SettingsRepositoryImpl @Inject constructor(
         } catch (e: Exception) {
             e.printStackTrace()
             false
+        }
+    }
+
+    override fun getAppColor(): kotlinx.coroutines.flow.Flow<Long?> {
+        return context.dataStore.data.map { preferences ->
+            preferences[Keys.APP_COLOR]
+        }
+    }
+
+    override suspend fun setAppColor(color: Long) {
+        context.dataStore.edit { preferences ->
+            preferences[Keys.APP_COLOR] = color
         }
     }
 }

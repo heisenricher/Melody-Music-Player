@@ -5,11 +5,9 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ColorLens
-import androidx.compose.material.icons.filled.Equalizer
-import androidx.compose.material.icons.filled.FolderOpen
-import androidx.compose.material3.Divider
+import androidx.compose.material.icons.filled.Palette
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.MaterialTheme
@@ -23,9 +21,7 @@ import androidx.compose.ui.unit.dp
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SettingsScreen(
-    onNavigateToTheme: () -> Unit,
-    onNavigateToAudio: () -> Unit,
-    onNavigateToStorage: () -> Unit,
+    onNavigateToColor: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Scaffold(
@@ -40,28 +36,20 @@ fun SettingsScreen(
                 .padding(paddingValues)
         ) {
             ListItem(
-                headlineContent = { Text("Theme & Style") },
-                supportingContent = { Text("App theme, dark mode, Material You dynamic colors") },
-                leadingContent = { Icon(imageVector = Icons.Default.ColorLens, contentDescription = null) },
-                modifier = Modifier.clickable { onNavigateToTheme() }
+                headlineContent = { Text("App Color") },
+                supportingContent = { Text("Choose a color theme for the entire app") },
+                leadingContent = {
+                    Icon(
+                        imageVector = Icons.Default.Palette,
+                        contentDescription = null,
+                        tint = MaterialTheme.colorScheme.primary
+                    )
+                },
+                modifier = Modifier
+                    .clickable { onNavigateToColor() }
+                    .padding(vertical = 4.dp)
             )
-            Divider(color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.1f))
-
-            ListItem(
-                headlineContent = { Text("Audio Settings") },
-                supportingContent = { Text("Equalizer, bass boost, virtualizer, speed controller") },
-                leadingContent = { Icon(imageVector = Icons.Default.Equalizer, contentDescription = null) },
-                modifier = Modifier.clickable { onNavigateToAudio() }
-            )
-            Divider(color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.1f))
-
-            ListItem(
-                headlineContent = { Text("Storage, Backup & Restore") },
-                supportingContent = { Text("Exclude folders, backup library DB configuration") },
-                leadingContent = { Icon(imageVector = Icons.Default.FolderOpen, contentDescription = null) },
-                modifier = Modifier.clickable { onNavigateToStorage() }
-            )
-            Divider(color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.1f))
+            HorizontalDivider(color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.1f))
         }
     }
 }

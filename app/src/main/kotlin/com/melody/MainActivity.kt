@@ -29,10 +29,13 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.rememberNavController
 import com.melody.core.theme.MelodyTheme
 import com.melody.core.ui.components.MiniPlayer
+import com.melody.feature.settings.SettingsViewModel
 import com.melody.navigation.MelodyNavGraph
 import com.melody.navigation.Screen
 import com.melody.player.controller.MelodyPlayer
@@ -59,7 +62,12 @@ class MainActivity : ComponentActivity() {
         checkPermissions()
 
         setContent {
-            MelodyTheme {
+            // Collect the user-selected custom app color from settings
+            val settingsViewModel: SettingsViewModel = viewModel()
+            val appColorLong by settingsViewModel.appColor.collectAsState()
+            val customColor = appColorLong?.let { Color(it) }
+
+            MelodyTheme(customPrimaryColor = customColor) {
                 val navController = rememberNavController()
                 val playerState by melodyPlayer.playerState.collectAsState()
                 var currentTab by remember { mutableStateOf<Screen>(Screen.Library) }

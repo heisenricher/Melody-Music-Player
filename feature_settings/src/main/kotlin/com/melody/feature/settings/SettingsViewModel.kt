@@ -15,57 +15,13 @@ class SettingsViewModel @Inject constructor(
     private val settingsRepository: SettingsRepository
 ) : ViewModel() {
 
-    val themeMode: StateFlow<String> = settingsRepository.getThemeMode()
-        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), "system")
+    /** Currently selected app primary color as ARGB Long, null = use default theme */
+    val appColor: StateFlow<Long?> = settingsRepository.getAppColor()
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), null)
 
-    val dynamicColor: StateFlow<Boolean> = settingsRepository.isDynamicColorEnabled()
-        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), true)
-
-    val playbackSpeed: StateFlow<Float> = settingsRepository.getPlaybackSpeed()
-        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), 1.0f)
-
-    val sleepTimerRemaining: StateFlow<Long> = settingsRepository.getSleepTimerRemaining()
-        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), 0L)
-
-    fun setThemeMode(mode: String) {
+    fun setAppColor(color: Long) {
         viewModelScope.launch {
-            settingsRepository.setThemeMode(mode)
-        }
-    }
-
-    fun setDynamicColor(enabled: Boolean) {
-        viewModelScope.launch {
-            settingsRepository.setDynamicColorEnabled(enabled)
-        }
-    }
-
-    fun setPlaybackSpeed(speed: Float) {
-        viewModelScope.launch {
-            settingsRepository.setPlaybackSpeed(speed)
-        }
-    }
-
-    fun startSleepTimer(durationMs: Long) {
-        viewModelScope.launch {
-            settingsRepository.startSleepTimer(durationMs)
-        }
-    }
-
-    fun stopSleepTimer() {
-        viewModelScope.launch {
-            settingsRepository.stopSleepTimer()
-        }
-    }
-
-    fun backupSettings(path: String) {
-        viewModelScope.launch {
-            settingsRepository.backupSettings(path)
-        }
-    }
-
-    fun restoreSettings(path: String) {
-        viewModelScope.launch {
-            settingsRepository.restoreSettings(path)
+            settingsRepository.setAppColor(color)
         }
     }
 }

@@ -26,4 +26,7 @@ interface SettingsRepository {
 
     suspend fun backupSettings(destinationPath: String): Boolean
     suspend fun restoreSettings(sourcePath: String): Boolean
+
+    fun getAppColor(): Flow<Long?> // ARGB packed as Long, null means use default theme
+    suspend fun setAppColor(color: Long)
 }
