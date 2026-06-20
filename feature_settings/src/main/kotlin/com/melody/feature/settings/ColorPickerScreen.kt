@@ -92,6 +92,13 @@ fun ColorPickerScreen(
         mutableFloatStateOf(currentSelected?.blue ?: defaultPrimary.blue)
     }
 
+    androidx.compose.runtime.LaunchedEffect(currentSelected) {
+        val baseColor = currentSelected ?: defaultPrimary
+        customRed = baseColor.red
+        customGreen = baseColor.green
+        customBlue = baseColor.blue
+    }
+
     val customColor = Color(customRed, customGreen, customBlue)
 
     Scaffold(
@@ -126,6 +133,14 @@ fun ColorPickerScreen(
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     modifier = Modifier.weight(1f)
                 )
+                if (selectedColor != null) {
+                    androidx.compose.material3.TextButton(
+                        onClick = { viewModel.setAppColor(null) },
+                        modifier = Modifier.padding(end = 8.dp)
+                    ) {
+                        Text("Reset to Default")
+                    }
+                }
                 Box(
                     modifier = Modifier
                         .size(48.dp)

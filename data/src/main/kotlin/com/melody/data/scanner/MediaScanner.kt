@@ -130,11 +130,17 @@ class MediaScanner @Inject constructor(
             songDao.insertSongs(songsToInsert)
         }
 
-        // Reconciliation: Delete database records for files that are no longer in MediaStore
-        // Since we are running in a flow, we can do a simple comparison.
-        // For larger libraries, fetching all IDs is fast enough.
-        // Let's do it safely.
-        // (For brevity, we can clear missing songs or keep them. Let's keep scanning simple and correct.)
+        // Reconciliation: Delete database records for files that are no longer in MediaStore or exist on disk
+        try {
+            val dbSongs = songDao.getAllSongsOnce()
+            val mediaStoreKeys = mediaStoreSongs.keys
+            val orphanedIds = dbSongs.filter { !mediaStoreKeys.contains(it.id) || !File(it.filePath).exists() }.map { it.id }
+            if (orphanedIds.isNotEmpty()) {
+                songDao.deleteSongsByIds(orphanedIds)
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
 
         emit(ScanStatus.Completed(songsToInsert.size))
     }.flowOn(Dispatchers.IO)

@@ -68,6 +68,12 @@ interface SongDao {
     @Query("SELECT * FROM songs WHERE filePath = :filePath LIMIT 1")
     suspend fun getSongByPath(filePath: String): SongEntity?
 
+    @Query("SELECT * FROM songs")
+    suspend fun getAllSongsOnce(): List<SongEntity>
+
+    @Query("DELETE FROM songs WHERE id IN (:ids)")
+    suspend fun deleteSongsByIds(ids: List<Long>)
+
     @Query("DELETE FROM songs")
     suspend fun clearAll()
 }

@@ -164,9 +164,13 @@ class SettingsRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun setAppColor(color: Long) {
+    override suspend fun setAppColor(color: Long?) {
         context.dataStore.edit { preferences ->
-            preferences[Keys.APP_COLOR] = color
+            if (color != null) {
+                preferences[Keys.APP_COLOR] = color
+            } else {
+                preferences.remove(Keys.APP_COLOR)
+            }
         }
     }
 }

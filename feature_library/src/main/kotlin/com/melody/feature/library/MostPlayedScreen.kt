@@ -114,7 +114,7 @@ fun MostPlayedScreen(
                         Spacer(modifier = Modifier.width(4.dp))
                         SongRow(
                             song = song,
-                            isPlaying = playerState.currentSong?.id == song.id,
+                            isPlaying = playerState.isPlaying && playerState.currentSong?.id == song.id,
                             onClick = { viewModel.playSong(songs, index) },
                             onLongClick = {},
                             onMoreClick = {},

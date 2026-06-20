@@ -140,7 +140,7 @@ fun SongsScreen(
                             items = state.songs,
                             key = { _, song -> song.id }
                         ) { index, song ->
-                            val isPlaying = playerState.currentSong?.id == song.id
+                            val isPlaying = playerState.isPlaying && playerState.currentSong?.id == song.id
                             SongRow(
                                 song = song,
                                 isPlaying = isPlaying,

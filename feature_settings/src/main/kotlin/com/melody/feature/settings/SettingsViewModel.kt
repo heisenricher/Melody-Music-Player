@@ -19,7 +19,7 @@ class SettingsViewModel @Inject constructor(
     val appColor: StateFlow<Long?> = settingsRepository.getAppColor()
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), null)
 
-    fun setAppColor(color: Long) {
+    fun setAppColor(color: Long?) {
         viewModelScope.launch {
             settingsRepository.setAppColor(color)
         }
