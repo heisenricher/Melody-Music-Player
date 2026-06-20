@@ -1,6 +1,6 @@
 # Melody Music Player
 
-[![Download Melody App](https://img.shields.io/badge/Download-Melody%20App-blueviolet?style=for-the-badge&logo=android)](https://github.com/heisenricher/Melody-Music-Player/releases/tag/v1.1.0)
+[![Download Melody App](https://img.shields.io/badge/Download-Melody%20App-blueviolet?style=for-the-badge&logo=android)](https://github.com/heisenricher/Melody-Music-Player/releases/tag/v1.2.0)
 
 Melody is a modern, beautiful, lightweight, privacy-focused, fully offline Android music player designed to handle very large local music libraries efficiently. Built native to Android using Jetpack Compose, Clean Architecture, and Material 3 design guidelines.
 
