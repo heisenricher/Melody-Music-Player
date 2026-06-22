@@ -40,8 +40,10 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -164,9 +166,25 @@ fun PlayerScreen(
 
                 // Progress Bar / Seek Bar
                 Column(modifier = Modifier.fillMaxWidth()) {
+                    var isDragging by remember { mutableStateOf(false) }
+                    var localProgress by remember { mutableFloatStateOf(state.playbackPosition.toFloat()) }
+
+                    LaunchedEffect(state.playbackPosition) {
+                        if (!isDragging) {
+                            localProgress = state.playbackPosition.toFloat()
+                        }
+                    }
+
                     Slider(
-                        value = state.playbackPosition.toFloat(),
-                        onValueChange = { viewModel.seekTo(it.toLong()) },
+                        value = localProgress,
+                        onValueChange = { 
+                            isDragging = true
+                            localProgress = it
+                        },
+                        onValueChangeFinished = {
+                            viewModel.seekTo(localProgress.toLong())
+                            isDragging = false
+                        },
                         valueRange = 0f..state.duration.coerceAtLeast(1L).toFloat(),
                         modifier = Modifier.fillMaxWidth()
                     )
@@ -175,7 +193,7 @@ fun PlayerScreen(
                         horizontalArrangement = Arrangement.SpaceBetween
                     ) {
                         Text(
-                            text = DurationFormatter.formatMs(state.playbackPosition),
+                            text = DurationFormatter.formatMs(localProgress.toLong()),
                             style = MaterialTheme.typography.bodySmall,
                             color = MaterialTheme.colorScheme.onSurface
                         )

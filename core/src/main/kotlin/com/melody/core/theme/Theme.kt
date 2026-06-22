@@ -47,7 +47,7 @@ private val LightColorScheme = lightColorScheme(
  */
 @Composable
 fun MelodyTheme(
-    darkTheme: Boolean = isSystemInDarkTheme(),
+    darkTheme: Boolean = false,
     dynamicColor: Boolean = false,
     customPrimaryColor: Color? = null,
     content: @Composable () -> Unit
